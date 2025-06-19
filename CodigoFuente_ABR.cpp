@@ -95,6 +95,7 @@ void postorden(Nodo* raiz) {
 
 // Menú principal
 int main() {
+    setlocale(LC_CTYPE, "Spanish");
     Nodo* raiz = NULL;
     int opcion;
 
