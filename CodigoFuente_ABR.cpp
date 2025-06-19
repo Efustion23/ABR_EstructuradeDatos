@@ -65,85 +65,57 @@ inorden(raiz->derecha);
 }
 }
 
-// Mostrar menú de opciones
-void mostrarMenu() {
-cout << "\n===== Menú Árbol Genealógico =====" << endl;
-cout << "1. Insertar miembro" << endl;
-cout << "2. Mostrar árbol (Inorden)" << endl;
-cout << "3. Buscar miembro por ID" << endl;
-cout << "4. Salir" << endl;
-cout << "Seleccione una opción: ";
-}
-
-// Función principal
+// Menú principal
 int main() {
-Nodo* raiz = NULL;
-int opcion;
-do {
-    mostrarMenu();
-    cin >> opcion;
-    cin.ignore(); // Limpia salto de línea en buffer
+    Nodo* raiz = nullptr;
+    int opcion;
 
-    switch(opcion) {
-        case 1: {
+    do {
+        cout << "\n--- Árbol Genealógico de la Antigua Civilización ---\n";
+        cout << "1. Insertar miembro\n";
+        cout << "2. Buscar miembro\n";
+        cout << "3. Mostrar descendientes\n";
+        cout << "4. Mostrar ancestros\n";
+        cout << "5. Eliminar miembro\n";
+        cout << "0. Salir\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+
+        if (opcion == 1) {
             int id;
-            string nombre, nacimiento, defuncion;
+            string nombre, nac, def;
             char sexo;
-
-            cout << "ID: ";
-            cin >> id;
+            cout << "ID: "; cin >> id;
             cin.ignore();
-
-            cout << "Nombre completo: ";
-            getline(cin, nombre);
-
-            cout << "Fecha de nacimiento: ";
-            getline(cin, nacimiento);
-
-            cout << "Fecha de defuncion (si aplica): ";
-            getline(cin, defuncion);
-
-            cout << "Sexo (M/F): ";
-            cin >> sexo;
-            cin.ignore();
-
-            Nodo* nuevo = new Nodo(id, nombre, nacimiento, defuncion, sexo);
-            raiz = insertar(raiz, nuevo);
-            break;
-        }
-
-        case 2:
-            cout << "\nMiembros registrados (Inorden):\n";
-            inorden(raiz);
-            break;
-
-        case 3: {
-            int idBuscar;
-            cout << "Ingrese ID a buscar: ";
-            cin >> idBuscar;
-
-            Nodo* resultado = buscarPorID(raiz, idBuscar);
-            if (resultado != NULL) {
-                cout << "Miembro encontrado:\n";
-                cout << "Nombre: " << resultado->nombre << endl;
-                cout << "Nacimiento: " << resultado->fechaNacimiento << endl;
-                cout << "Defuncion: " << resultado->fechaDefuncion << endl;
-                cout << "Sexo: " << resultado->sexo << endl;
+            cout << "Nombre: "; getline(cin, nombre);
+            cout << "Fecha de nacimiento: "; getline(cin, nac);
+            cout << "Fecha de defunción (si aplica): "; getline(cin, def);
+            cout << "Sexo (M/F): "; cin >> sexo;
+            raiz = insertar(raiz, new Nodo(id, nombre, nac, def, sexo));
+        } else if (opcion == 2) {
+            int id;
+            cout << "Ingrese ID a buscar: "; cin >> id;
+            Nodo* encontrado = buscar(raiz, id);
+            if (encontrado) {
+                cout << "Encontrado: " << encontrado->nombre << ", Nac: " << encontrado->fechaNacimiento << ", Def: " << encontrado->fechaDefuncion << endl;
             } else {
-                cout << "No se encontró un miembro con ese ID.\n";
+                cout << "Miembro no encontrado.\n";
             }
-            break;
+        } else if (opcion == 3) {
+            cout << "Descendientes:\n";
+            mostrarDescendientes(raiz);
+        } else if (opcion == 4) {
+            int id;
+            cout << "Ingrese ID del descendiente para ver ancestros: "; cin >> id;
+            if (!mostrarAncestros(raiz, id))
+                cout << "Miembro no encontrado.\n";
+        } else if (opcion == 5) {
+            int id;
+            cout << "Ingrese ID a eliminar: "; cin >> id;
+            raiz = eliminar(raiz, id);
+            cout << "Eliminado si existía.\n";
         }
+    } while (opcion != 0);
 
-        case 4:
-            cout << "Saliendo del programa..." << endl;
-            break;
-
-        default:
-            cout << "Opción inválida. Intente nuevamente.\n";
-    }
-
-} while (opcion != 4);
-
-return 0;
+    return 0;
 }
