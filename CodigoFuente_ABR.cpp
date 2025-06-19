@@ -12,6 +12,19 @@ struct Nodo {
     Nodo* derecha;
 };
 
+Nodo(int _ID, string _nombre, string _nacimiento, string _defuncion, char _sexo, string _rol) {
+        ID = _ID;
+        nombre = _nombre;
+        fechaNacimiento = _nacimiento;
+        fechaDefuncion = _defuncion;
+        sexo = _sexo;
+        rol = _rol;
+        izquierda = NULL;
+        derecha = NULL;
+    }
+};
+
+
 Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
     if (raiz == nullptr)
         return nuevo;
