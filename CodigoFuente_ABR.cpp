@@ -92,22 +92,6 @@ void inorden(Nodo* raiz) {
     }
 }
 
-// Encontrar mínimo
-Nodo* encontrarMinimo(Nodo* raiz) {
-    if (raiz == NULL) return NULL;
-    while (raiz->izquierda != NULL)
-        raiz = raiz->izquierda;
-    return raiz;
-}
-
-// Encontrar máximo
-Nodo* encontrarMaximo(Nodo* raiz) {
-    if (raiz == NULL) return NULL;
-    while (raiz->derecha != NULL)
-        raiz = raiz->derecha;
-    return raiz;
-}
-
 // Mostrar un nodo
 void mostrarMiembro(Nodo* nodo) {
     if (nodo != NULL) {
@@ -155,7 +139,6 @@ void mostrarHijos(Nodo* raiz, int id) {
 
 // Menú principal con opción de parentescos
 int main() {
-    setlocale(LC_CTYPE, "Spanish");
     Nodo* raiz = NULL;
     int opcion;
 
@@ -164,11 +147,8 @@ int main() {
         cout << "1. Insertar nuevo miembro\n";
         cout << "2. Buscar miembro por ID\n";
         cout << "3. Mostrar árbol inorden (ordenado por ID)\n";
-        cout << "4. Mostrar miembro con menor ID\n";
-        cout << "5. Mostrar miembro con mayor ID\n";
-        cout << "6. Verificar si el árbol está vacío\n";
-        cout << "7. Mostrar parentescos (padre e hijos)\n";
-        cout << "0. Salir\n";
+        cout << "4. Mostrar parentescos (padre e hijos)\n";
+        cout << "5. Salir\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
@@ -190,25 +170,8 @@ int main() {
                 cout << "\n--- Miembros ordenados por ID (Inorden) ---\n";
                 inorden(raiz);
                 break;
+
             case 4: {
-                Nodo* min = encontrarMinimo(raiz);
-                cout << "\nMiembro con menor ID:\n";
-                mostrarMiembro(min);
-                break;
-            }
-            case 5: {
-                Nodo* max = encontrarMaximo(raiz);
-                cout << "\nMiembro con mayor ID:\n";
-                mostrarMiembro(max);
-                break;
-            }
-            case 6:
-                if (estaVacio(raiz))
-                    cout << "El árbol está vacío.\n";
-                else
-                    cout << "El árbol NO está vacío.\n";
-                break;
-            case 7: {
                 int id;
                 cout << "Ingrese ID para mostrar parentescos: ";
                 cin >> id;
@@ -228,7 +191,7 @@ int main() {
                 mostrarHijos(raiz, id);
                 break;
             }
-            case 0:
+            case 5:
                 cout << "Saliendo del programa...\n";
                 break;
             default:
@@ -239,4 +202,3 @@ int main() {
 
     return 0;
 }
-
