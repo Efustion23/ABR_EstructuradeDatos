@@ -155,6 +155,7 @@ void mostrarHijos(Nodo* raiz, int id) {
 
 // Menú principal con opción de parentescos
 int main() {
+    setlocale(LC_CTYPE, "Spanish");
     Nodo* raiz = NULL;
     int opcion;
 
