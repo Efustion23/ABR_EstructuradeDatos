@@ -2,8 +2,8 @@
 #include <string>
 using namespace std;
 
-// Estructura del nodo
-struct Nodo {
+struct Nodo
+{
     int ID;
     string nombre;
     string fechaNacimiento;
@@ -13,8 +13,8 @@ struct Nodo {
     Nodo* derecha;
 };
 
-// Crear nuevo nodo
-Nodo* crearNodo(int ID, string nombre, string nacimiento, string defuncion, char sexo) {
+Nodo* crearNodo(int ID, string nombre, string nacimiento, string defuncion, char sexo)
+{
     Nodo* nuevo = new Nodo;
     nuevo->ID = ID;
     nuevo->nombre = nombre;
@@ -26,8 +26,8 @@ Nodo* crearNodo(int ID, string nombre, string nacimiento, string defuncion, char
     return nuevo;
 }
 
-// Ingresar datos por consola
-Nodo* ingresarDatosMiembro() {
+Nodo* ingresarDatosMiembro()
+{
     int id;
     string nombre, nacimiento, defuncion;
     char sexo;
@@ -38,7 +38,7 @@ Nodo* ingresarDatosMiembro() {
     cin >> nombre;
     cout << "Fecha de nacimiento: ";
     cin >> nacimiento;
-    cout << "Fecha de defunción (o '-' si no aplica): ";
+    cout << "Fecha de defuncion (o '-' si no aplica): ";
     cin >> defuncion;
     cout << "Sexo (M/F): ";
     cin >> sexo;
@@ -46,13 +46,13 @@ Nodo* ingresarDatosMiembro() {
     return crearNodo(id, nombre, nacimiento, defuncion, sexo);
 }
 
-// Verificar si el árbol está vacío
-bool estaVacio(Nodo* raiz) {
+bool estaVacio(Nodo* raiz)
+{
     return raiz == NULL;
 }
 
-// Buscar por ID
-Nodo* buscarPorID(Nodo* raiz, int IDbuscado) {
+Nodo* buscarPorID(Nodo* raiz, int IDbuscado)
+{
     if (raiz == NULL || raiz->ID == IDbuscado)
         return raiz;
     if (IDbuscado < raiz->ID)
@@ -61,9 +61,10 @@ Nodo* buscarPorID(Nodo* raiz, int IDbuscado) {
         return buscarPorID(raiz->derecha, IDbuscado);
 }
 
-// Insertar nodo con validación
-Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
-    if (buscarPorID(raiz, nuevo->ID) != NULL) {
+Nodo* insertar(Nodo* raiz, Nodo* nuevo)
+{
+    if (buscarPorID(raiz, nuevo->ID) != NULL)
+	{
         cout << "Error: Ya existe un miembro con ese ID.\n";
         return raiz;
     }
@@ -79,9 +80,10 @@ Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
     return raiz;
 }
 
-// Recorrido inorden
-void inorden(Nodo* raiz) {
-    if (raiz != NULL) {
+void inorden(Nodo* raiz)
+{
+    if (raiz != NULL)
+	{
         inorden(raiz->izquierda);
         cout << "ID: " << raiz->ID
              << " | Nombre: " << raiz->nombre
@@ -92,22 +94,25 @@ void inorden(Nodo* raiz) {
     }
 }
 
-// Mostrar un nodo
-void mostrarMiembro(Nodo* nodo) {
-    if (nodo != NULL) {
+void mostrarMiembro(Nodo* nodo)
+{
+    if (nodo != NULL)
+	{
         cout << "\n--- Miembro encontrado ---\n";
         cout << "ID: " << nodo->ID << endl;
         cout << "Nombre: " << nodo->nombre << endl;
         cout << "Nacimiento: " << nodo->fechaNacimiento << endl;
-        cout << "Defunción: " << nodo->fechaDefuncion << endl;
+        cout << "Defuncion: " << nodo->fechaDefuncion << endl;
         cout << "Sexo: " << nodo->sexo << endl;
-    } else {
+    }
+	else
+	{
         cout << "Miembro no encontrado.\n";
     }
 }
 
-// Buscar padre desde la raíz
-Nodo* buscarPadre(Nodo* raiz, int id, Nodo* padre) {
+Nodo* buscarPadre(Nodo* raiz, int id, Nodo* padre)
+{
     if (raiz == NULL)
         return NULL;
     if (raiz->ID == id)
@@ -118,11 +123,12 @@ Nodo* buscarPadre(Nodo* raiz, int id, Nodo* padre) {
         return buscarPadre(raiz->derecha, id, raiz);
 }
 
-// Mostrar hijos del nodo
-void mostrarHijos(Nodo* raiz, int id) {
+void mostrarHijos(Nodo* raiz, int id)
+{
     if (raiz == NULL)
         return;
-    if (raiz->ID == id) {
+    if (raiz->ID == id)
+	{
         if (raiz->izquierda != NULL)
             cout << "Hijo izquierdo: " << raiz->izquierda->nombre << " (ID: " << raiz->izquierda->ID << ")\n";
         if (raiz->derecha != NULL)
@@ -137,28 +143,33 @@ void mostrarHijos(Nodo* raiz, int id) {
         mostrarHijos(raiz->derecha, id);
 }
 
-// Menú principal con opción de parentescos
-int main() {
+int main()
+{
     Nodo* raiz = NULL;
     int opcion;
 
-    do {
-        cout << "\n===== Menú Árbol Genealógico (ABB) =====\n";
+    do
+	{
+
+        cout << "\n===== Menu Arbol Genealogico (ABB) =====\n";
         cout << "1. Insertar nuevo miembro\n";
         cout << "2. Buscar miembro por ID\n";
-        cout << "3. Mostrar árbol inorden (ordenado por ID)\n";
+        cout << "3. Mostrar arbol inorden (ordenado por ID)\n";
         cout << "4. Mostrar parentescos (padre e hijos)\n";
         cout << "5. Salir\n";
-        cout << "Seleccione una opción: ";
+        cout << "Seleccione una opcion: ";
         cin >> opcion;
 
-        switch (opcion) {
-            case 1: {
+        switch (opcion)
+		{
+            case 1:
+			{
                 Nodo* nuevo = ingresarDatosMiembro();
                 raiz = insertar(raiz, nuevo);
                 break;
             }
-            case 2: {
+            case 2:
+			{
                 int id;
                 cout << "Ingrese ID a buscar: ";
                 cin >> id;
@@ -171,13 +182,15 @@ int main() {
                 inorden(raiz);
                 break;
 
-            case 4: {
+            case 4:
+			{
                 int id;
                 cout << "Ingrese ID para mostrar parentescos: ";
                 cin >> id;
 
                 Nodo* miembro = buscarPorID(raiz, id);
-                if (miembro == NULL) {
+                if (miembro == NULL)
+				{
                     cout << "Miembro no encontrado.\n";
                     break;
                 }
@@ -186,7 +199,7 @@ int main() {
                 if (padre != NULL)
                     cout << "Padre: " << padre->nombre << " (ID: " << padre->ID << ")\n";
                 else
-                    cout << "No se encontró padre (posiblemente es la raíz).\n";
+                    cout << "No se encontro padre (posiblemente es la raiz).\n";
 
                 mostrarHijos(raiz, id);
                 break;
@@ -195,7 +208,7 @@ int main() {
                 cout << "Saliendo del programa...\n";
                 break;
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opcion invalida.\n";
         }
 
     } while (opcion != 0);
