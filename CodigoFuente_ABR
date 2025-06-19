@@ -1,0 +1,27 @@
+struct Nodo {
+    int ID;
+    string nombre;
+    string fechaNacimiento;
+    string fechaDefuncion;
+    char sexo;
+    Nodo* izquierda;
+    Nodo* derecha;
+};
+
+Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
+    if (raiz == nullptr)
+        return nuevo;
+    if (nuevo->ID < raiz->ID)
+        raiz->izquierda = insertar(raiz->izquierda, nuevo);
+    else
+        raiz->derecha = insertar(raiz->derecha, nuevo);
+    return raiz;
+}
+
+void inorden(Nodo* nodo) {
+    if (nodo) {
+        inorden(nodo->izquierda);
+        cout << nodo->nombre << endl;
+        inorden(nodo->derecha);
+    }
+}
