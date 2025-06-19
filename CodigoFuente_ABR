@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 struct Nodo {
     int ID;
     string nombre;
