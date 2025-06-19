@@ -22,12 +22,4 @@ Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
     return raiz;
 }
 
-void inorden(Nodo* nodo) {
-    if (nodo) {
-        inorden(nodo->izquierda);
-        cout << nodo->nombre << endl;
-        inorden(nodo->derecha);
-    }
-}
-
 
