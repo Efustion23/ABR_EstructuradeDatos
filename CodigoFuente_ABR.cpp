@@ -43,9 +43,9 @@ Nodo* ingresarDatosMiembro()
     cin >> id;
     cout << "Nombre (una palabra): ";
     cin >> nombre;
-    cout << "Fecha de nacimiento: ";
+    cout << "Fecha de nacimiento(00-00-0000): ";
     cin >> nacimiento;
-    cout << "Fecha de defuncion (o '-' si no aplica): ";
+    cout << "Fecha de defuncion (Poner fecha si ya fallecio(00-00-0000) , de lo contrario poner no): ";
     cin >> defuncion;
     cout << "Sexo (M/F): ";
     cin >> sexo;
@@ -256,11 +256,11 @@ int main()
         cout << "\n===== Menu Árbol Genealógico (ABB) =====\n";
         cout << "1. Insertar nuevo miembro\n";
         cout << "2. Buscar miembro por ID\n";
-        cout << "3. Mostrar recorrido Inorden\n";
-        cout << "4. Mostrar parentescos (padre e hijos)\n";
-        cout << "5. Mostrar descendientes\n";
-        cout << "6. Mostrar recorrido Preorden\n";
-        cout << "7. Mostrar recorrido Postorden\n";
+        cout << "3. Mostrar parentescos (padre e hijos)\n";
+        cout << "4. Mostrar descendientes\n";
+        cout << "5. Mostrar recorrido Inorden (Del mas Antiguo al mas Reciente)\n";
+        cout << "6. Mostrar recorrido Preorden (orden en que fueron insertados)\n";
+        cout << "7. Mostrar recorrido Postorden (muestra toda decendecia de los mas jovenes a los mas antiguos)\n";
         cout << "8. Salir\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
@@ -270,9 +270,9 @@ int main()
 		{
             case 1: insertarMiembro(raiz); break;
             case 2: buscarMiembro(raiz); break;
-            case 3: cout << "\n--- Recorrido Inorden ---\n"; inorden(raiz); break;
-            case 4: mostrarParentescos(raiz); break;
-            case 5: mostrarDescendencia(raiz); break;
+            case 3: mostrarParentescos(raiz); break;
+            case 4: mostrarDescendencia(raiz); break;
+            case 5: cout << "\n--- Recorrido Inorden ---\n"; inorden(raiz); break;
             case 6: cout << "\n--- Recorrido Preorden ---\n"; preorden(raiz); break;
             case 7: cout << "\n--- Recorrido Postorden ---\n"; postorden(raiz); break;
             case 8: cout << "Saliendo del programa...\n"; break;
