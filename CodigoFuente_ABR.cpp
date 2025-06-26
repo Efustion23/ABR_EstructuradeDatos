@@ -4,7 +4,8 @@
 using namespace std;
 
 // ===== ESTRUCTURA DEL NODO =====
-struct Nodo {
+struct Nodo
+{
     int ID;
     string nombre;
     string fechaNacimiento;
@@ -15,7 +16,8 @@ struct Nodo {
 };
 
 // ===== FUNCIONES PARA CREAR E INGRESAR MIEMBROS =====
-Nodo* crearNodo(int ID, string nombre, string nacimiento, string defuncion, char sexo) {
+Nodo* crearNodo(int ID, string nombre, string nacimiento, string defuncion, char sexo)
+{
     Nodo* nuevo = new Nodo;
     nuevo->ID = ID;
     nuevo->nombre = nombre;
@@ -27,52 +29,59 @@ Nodo* crearNodo(int ID, string nombre, string nacimiento, string defuncion, char
     return nuevo;
 }
 
-Nodo* ingresarDatosMiembro() {
+Nodo* ingresarDatosMiembro()
+{
     int id;
     string nombre, nacimiento, defuncion;
     char sexo;
 
     // Validar ID
-    do {
+    do
+	{
         cout << "ID (positivo): ";
         cin >> id;
-        if (id <= 0) cout << "? Error: El ID debe ser un número positivo.\n";
+        if (id <= 0) cout << "Error: El ID debe ser un número positivo.\n";
     } while (id <= 0);
 
     // Validar nombre
-    do {
+    do
+	{
         cout << "Nombre (una palabra): ";
         cin >> nombre;
-        if (nombre.empty()) cout << "? Error: El nombre no puede estar vacío.\n";
+        if (nombre.empty()) cout << "Error: El nombre no puede estar vacío.\n";
     } while (nombre.empty());
 
     // Validar fecha de nacimiento
-    do {
+    do
+	{
         cout << "Fecha de nacimiento (dd-mm-aaaa): ";
         cin >> nacimiento;
-        if (nacimiento.empty()) cout << "? Error: Este campo no puede estar vacío.\n";
+        if (nacimiento.empty()) cout << "Error: Este campo no puede estar vacío.\n";
     } while (nacimiento.empty());
 
     // Validar fecha de defunción
-    do {
+    do
+	{
         cout << "Fecha de defunción (dd-mm-aaaa o 'no'): ";
         cin >> defuncion;
-        if (defuncion.empty()) cout << "? Error: Este campo no puede estar vacío.\n";
+        if (defuncion.empty()) cout << "Error: Este campo no puede estar vacío.\n";
     } while (defuncion.empty());
 
     // Validar sexo
-    do {
+    do
+	{
         cout << "Sexo (M/F): ";
         cin >> sexo;
         sexo = toupper(sexo);
-        if (sexo != 'M' && sexo != 'F') cout << "? Error: Solo se permite M o F.\n";
+        if (sexo != 'M' && sexo != 'F') cout << "Error: Solo se permite M o F.\n";
     } while (sexo != 'M' && sexo != 'F');
 
     return crearNodo(id, nombre, nacimiento, defuncion, sexo);
 }
 
 // ===== OPERACIONES DEL ÁRBOL BINARIO DE BÚSQUEDA =====
-Nodo* buscarPorID(Nodo* raiz, int IDbuscado) {
+Nodo* buscarPorID(Nodo* raiz, int IDbuscado)
+{
     if (raiz == NULL || raiz->ID == IDbuscado)
         return raiz;
     if (IDbuscado < raiz->ID)
@@ -81,8 +90,10 @@ Nodo* buscarPorID(Nodo* raiz, int IDbuscado) {
         return buscarPorID(raiz->derecha, IDbuscado);
 }
 
-Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
-    if (buscarPorID(raiz, nuevo->ID) != NULL) {
+Nodo* insertar(Nodo* raiz, Nodo* nuevo)
+{
+    if (buscarPorID(raiz, nuevo->ID) != NULL)
+	{
         cout << "? Error: Ya existe un miembro con ese ID.\n";
         return raiz;
     }
@@ -96,24 +107,30 @@ Nodo* insertar(Nodo* raiz, Nodo* nuevo) {
 }
 
 // ===== RECORRIDOS DEL ÁRBOL =====
-void inorden(Nodo* raiz) {
-    if (raiz != NULL) {
+void inorden(Nodo* raiz)
+{
+    if (raiz != NULL)
+	{
         inorden(raiz->izquierda);
         cout << raiz->ID << " - " << raiz->nombre << endl;
         inorden(raiz->derecha);
     }
 }
 
-void preorden(Nodo* raiz) {
-    if (raiz != NULL) {
+void preorden(Nodo* raiz)
+{
+    if (raiz != NULL)
+	{
         cout << raiz->ID << " - " << raiz->nombre << endl;
         preorden(raiz->izquierda);
         preorden(raiz->derecha);
     }
 }
 
-void postorden(Nodo* raiz) {
-    if (raiz != NULL) {
+void postorden(Nodo* raiz)
+{
+    if (raiz != NULL)
+	{
         postorden(raiz->izquierda);
         postorden(raiz->derecha);
         cout << raiz->ID << " - " << raiz->nombre << endl;
@@ -121,8 +138,10 @@ void postorden(Nodo* raiz) {
 }
 
 // ===== FUNCIONES AUXILIARES PARA CONSULTAS =====
-void mostrarMiembro(Nodo* nodo) {
-    if (nodo != NULL) {
+void mostrarMiembro(Nodo* nodo)
+{
+    if (nodo != NULL)
+	{
         cout << "\n--- Miembro encontrado ---\n";
         cout << "ID: " << nodo->ID << endl;
         cout << "Nombre: " << nodo->nombre << endl;
@@ -130,11 +149,12 @@ void mostrarMiembro(Nodo* nodo) {
         cout << "Defunción: " << nodo->fechaDefuncion << endl;
         cout << "Sexo: " << nodo->sexo << endl;
     } else {
-        cout << "? Miembro no encontrado.\n";
+        cout << "Miembro no encontrado.\n";
     }
 }
 
-Nodo* buscarPadre(Nodo* raiz, int id, Nodo* padre) {
+Nodo* buscarPadre(Nodo* raiz, int id, Nodo* padre)
+{
     if (raiz == NULL)
         return NULL;
     if (raiz->ID == id)
@@ -145,10 +165,12 @@ Nodo* buscarPadre(Nodo* raiz, int id, Nodo* padre) {
         return buscarPadre(raiz->derecha, id, raiz);
 }
 
-void mostrarHijos(Nodo* raiz, int id) {
+void mostrarHijos(Nodo* raiz, int id)
+{
     if (raiz == NULL)
         return;
-    if (raiz->ID == id) {
+    if (raiz->ID == id)
+	{
         if (raiz->izquierda != NULL)
             cout << "Hijo izquierdo: " << raiz->izquierda->nombre << " (ID: " << raiz->izquierda->ID << ")\n";
         if (raiz->derecha != NULL)
@@ -163,30 +185,36 @@ void mostrarHijos(Nodo* raiz, int id) {
         mostrarHijos(raiz->derecha, id);
 }
 
-void mostrarDescendientes(Nodo* nodo) {
+void mostrarDescendientes(Nodo* nodo)
+{
     if (nodo == NULL)
         return;
-    if (nodo->izquierda != NULL) {
+    if (nodo->izquierda != NULL)
+	{
         cout << "Hijo: " << nodo->izquierda->nombre << " (ID: " << nodo->izquierda->ID << ")\n";
         mostrarDescendientes(nodo->izquierda);
     }
-    if (nodo->derecha != NULL) {
+    if (nodo->derecha != NULL)
+	{
         cout << "Hijo: " << nodo->derecha->nombre << " (ID: " << nodo->derecha->ID << ")\n";
         mostrarDescendientes(nodo->derecha);
     }
 }
 
 // ===== FUNCIONES LLAMADAS DESDE EL MENÚ =====
-void insertarMiembro(Nodo*& raiz) {
+void insertarMiembro(Nodo*& raiz)
+{
     Nodo* nuevo = ingresarDatosMiembro();
     raiz = insertar(raiz, nuevo);
 }
 
-void buscarMiembro(Nodo* raiz) {
+void buscarMiembro(Nodo* raiz)
+{
     int id;
     cout << "Ingrese ID a buscar: ";
     cin >> id;
-    if (id <= 0) {
+    if (id <= 0)
+	{
         cout << "? ID inválido.\n";
         return;
     }
@@ -194,17 +222,20 @@ void buscarMiembro(Nodo* raiz) {
     mostrarMiembro(resultado);
 }
 
-void mostrarParentescos(Nodo* raiz) {
+void mostrarParentescos(Nodo* raiz)
+{
     int id;
     cout << "Ingrese ID para mostrar parentescos: ";
     cin >> id;
-    if (id <= 0) {
-        cout << "? ID inválido.\n";
+    if (id <= 0)
+	{
+        cout << "ID inválido.\n";
         return;
     }
 
     Nodo* miembro = buscarPorID(raiz, id);
-    if (miembro == NULL) {
+    if (miembro == NULL)
+	{
         cout << "Miembro no encontrado.\n";
         return;
     }
@@ -218,17 +249,20 @@ void mostrarParentescos(Nodo* raiz) {
     mostrarHijos(raiz, id);
 }
 
-void mostrarDescendencia(Nodo* raiz) {
+void mostrarDescendencia(Nodo* raiz)
+{
     int id;
     cout << "Ingrese ID para mostrar descendientes: ";
     cin >> id;
-    if (id <= 0) {
-        cout << "? ID inválido.\n";
+    if (id <= 0)
+	{
+        cout << "ID inválido.\n";
         return;
     }
 
     Nodo* miembro = buscarPorID(raiz, id);
-    if (miembro == NULL) {
+    if (miembro == NULL)
+	{
         cout << "Miembro no encontrado.\n";
         return;
     }
@@ -238,11 +272,13 @@ void mostrarDescendencia(Nodo* raiz) {
 }
 
 // ===== PROGRAMA PRINCIPAL =====
-int main() {
+int main()
+{
     Nodo* raiz = NULL;
     int opcion;
 
-    do {
+    do
+	{
         cout << "\n===== Menú Árbol Genealógico (ABB) =====\n";
         cout << "1. Insertar nuevo miembro\n";
         cout << "2. Buscar miembro por ID\n";
@@ -255,7 +291,8 @@ int main() {
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
-        switch (opcion) {
+        switch (opcion)
+		{
             case 1: insertarMiembro(raiz); break;
             case 2: buscarMiembro(raiz); break;
             case 3: mostrarParentescos(raiz); break;
