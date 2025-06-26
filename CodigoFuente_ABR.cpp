@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cctype> // Para toupper()
+
 using namespace std;
 
 // ===== ESTRUCTURA DEL NODO =====
