@@ -274,6 +274,7 @@ void mostrarDescendencia(Nodo* raiz)
 // ===== PROGRAMA PRINCIPAL =====
 int main()
 {
+    setlocale(LC_CTYPE, "Spanish");
     Nodo* raiz = NULL;
     int opcion;
 
