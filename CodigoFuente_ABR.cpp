@@ -143,6 +143,22 @@ void mostrarHijos(Nodo* raiz, int id)
         mostrarHijos(raiz->derecha, id);
 }
 
+
+void mostrarDescendientes(Nodo* nodo) {
+    if (nodo == NULL)
+        return;
+
+    if (nodo->izquierda != NULL) {
+        cout << "Hijo: " << nodo->izquierda->nombre << " (ID: " << nodo->izquierda->ID << ")\n";
+        mostrarDescendientes(nodo->izquierda);
+    }
+    if (nodo->derecha != NULL) {
+        cout << "Hijo: " << nodo->derecha->nombre << " (ID: " << nodo->derecha->ID << ")\n";
+        mostrarDescendientes(nodo->derecha);
+    }
+}
+
+
 int main()
 {
     Nodo* raiz = NULL;
@@ -156,7 +172,8 @@ int main()
         cout << "2. Buscar miembro por ID\n";
         cout << "3. Mostrar arbol inorden (ordenado por ID)\n";
         cout << "4. Mostrar parentescos (padre e hijos)\n";
-        cout << "5. Salir\n";
+       	cout << "5. Mostrar descendientes\n";
+	cout << "6. Salir\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
 
@@ -204,14 +221,32 @@ int main()
                 mostrarHijos(raiz, id);
                 break;
             }
-            case 5:
+
+	   case 5:
+		{
+		    int id;
+		    cout << "Ingrese ID para mostrar descendientes: ";
+		    cin >> id;
+		
+		    Nodo* miembro = buscarPorID(raiz, id);
+		    if (miembro == NULL) {
+		        cout << "Miembro no encontrado.\n";
+		        break;
+		    }
+		
+		    cout << "Descendientes de " << miembro->nombre << " (ID: " << miembro->ID << "):\n";
+		    mostrarDescendientes(miembro);
+		
+		    break;
+		}	
+            case 6:
                 cout << "Saliendo del programa...\n";
                 break;
             default:
                 cout << "Opcion invalida.\n";
         }
 
-    } while (opcion != 0);
+    } while (opcion != 6);
 
     return 0;
 }
